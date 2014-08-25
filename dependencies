@@ -1,0 +1,84 @@
+###################################################
+#
+#   The buildtools repository is at:
+#   https://github.com/foo123/scripts/buildtools
+#
+###################################################
+
+# A '#' represents a comment and everything after it is skipped
+# Lines starting with # or blank lines are skipped
+# One line for each setting, no multiple settings on same line, line indentation does not matter
+# Blocks with =[] define LISTS (arrays)
+# Blocks with ={} define MAPS (hashmaps)
+# Blocks with =[{}] define ORDEREDMAPS (array of hashmaps)
+# Blocks with = or nothing define VALUES (single value)
+# A key and/or value can be quoted (with ", ' or `, quotes) or unquoted
+# Lines with one or multiple '@'s define the end of that many previous blocks
+
+# The input files (list)
+SRC =[]
+
+    !tpl:umd-exports-header-no-worker.tpl.js  # include a umd-header template
+    
+    ./src/Pattern.js
+
+    ./src/algorithms/BuiltinMatcher.js
+    ./src/algorithms/NaiveMatcher.js
+    ./src/algorithms/RabinKarpMatcher.js
+    ./src/algorithms/FSAMatcher.js
+    ./src/algorithms/KnuthMorrisPrattMatcher.js
+    ./src/algorithms/BoyerMooreMatcher.js
+    # TODO:
+    #./src/algorithms/BaezaYatesGonnetMatcher.js
+    #./src/algorithms/BaezaYatesGonnetWuManberMatcher.js
+    #./src/algorithms/AhoCorasickMatcher.js
+    #./src/algorithms/CommentzWalterMatcher.js
+
+    !tpl:umd-exports-footer.tpl.js  # include a umd-footer template
+    
+@  # end block
+
+# extract header from this file
+HEADER = 
+./src/Pattern.js
+
+# Any texts to be replaced in the final file (map)
+REPLACE =[{}]
+
+    "@@EXPORTS@@" = "EXPORTS"
+    
+    "@@VERSION@@" = "0.1"
+    
+    "@@USE_STRICT@@" = '"use strict";'
+    
+    "@@MODULE_NAME@@" = "Pattern"
+    
+    "@@MODULE_DEPENDENCIES@@" = "null"
+    
+    "@@MODULE_ARGUMENTS@@"  = "undef"
+    
+@  # end block
+
+# Minify the Package (map of lists)
+#MINIFY ={}
+#
+#    # Options for Node UglifyJS Compiler (if used), (default minify options, mangle and compress)
+#    "UGLIFY" =[]
+#        -m -c
+#    @  # end block
+#
+#    # Options for Java Closure Compiler (if used), (default minify options)
+#    "CLOSURE" =[]
+#        --language_in=ECMASCRIPT5_STRICT
+#    @  # end block
+#
+#    # Options for Java YUI Compressor Compiler (if used), (default minify options)
+#    "YUI" =[]
+#        --preserve-semi
+#    @  # end block
+#    
+#@  # end block
+
+# The final output file (value)
+OUT =
+./test/js/pattern.min.js

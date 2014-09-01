@@ -3,6 +3,9 @@ Pattern Matching Algorithms
 
 __Various pattern matching algorithms implementations in JavaScript  (IN PROGRESS)__
 
+[pattern.min.js](https://raw.githubusercontent.com/foo123/PatternMatchingAlgorithms/master/test/js/pattern.min.js)
+
+
 [Wikipedia String Matching Algorithms](http://en.wikipedia.org/wiki/String_searching_algorithm)
 
 * Builtin Matcher (i.e *String.prototype.indexOf* )

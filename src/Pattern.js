@@ -11,7 +11,7 @@
     @@USE_STRICT@@
     
     // http://en.wikipedia.org/wiki/String_searching_algorithm
-    var Pattern = EXPORTS.Pattern = { VERSION: "@@VERSION@@" };
+    var Pattern = exports.Pattern = { VERSION: "@@VERSION@@" }, undef=undefined;
     
     /*
         space,
@@ -74,7 +74,7 @@
                 ,"D": 0
                 ,"E": 0
                 ,"F": 0
-                ,"Q": 0
+                ,"G": 0
                 ,"H": 0
                 ,"I": 0
                 ,"J": 0
@@ -100,7 +100,7 @@
                 ,"d": 0
                 ,"e": 0
                 ,"f": 0
-                ,"q": 0
+                ,"g": 0
                 ,"h": 0
                 ,"i": 0
                 ,"j": 0

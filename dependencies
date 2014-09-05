@@ -18,7 +18,7 @@
 # The input files (list)
 SRC =[]
 
-    !tpl:umd-exports-header-no-worker.tpl.js  # include a umd-header template
+    !tpl:umd-header-single.tpl.js  # include a umd-header template
     
     ./src/Pattern.js
 
@@ -34,7 +34,7 @@ SRC =[]
     #./src/algorithms/AhoCorasickMatcher.js
     #./src/algorithms/CommentzWalterMatcher.js
 
-    !tpl:umd-exports-footer.tpl.js  # include a umd-footer template
+    !tpl:umd-footer.tpl.js  # include a umd-footer template
     
 @  # end block
 
@@ -45,19 +45,11 @@ HEADER =
 # Any texts to be replaced in the final file (map)
 REPLACE =[{}]
 
-    "@@ROOT@@" = "this.self || this"
-    
-    "@@EXPORTS@@" = "EXPORTS"
-    
-    "@@VERSION@@" = "0.1"
-    
+    "@@ROOT@@" = "this"
+    "@@EXPORTS@@" = "exports"
+    "@@VERSION@@" = "0.1.1"
     "@@USE_STRICT@@" = '"use strict";'
-    
     "@@MODULE_NAME@@" = "Pattern"
-    
-    "@@MODULE_DEPENDENCIES@@" = "null"
-    
-    "@@MODULE_ARGUMENTS@@"  = "undef"
     
 @  # end block
 

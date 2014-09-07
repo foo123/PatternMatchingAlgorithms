@@ -11,7 +11,7 @@
     @@USE_STRICT@@
     
     // http://en.wikipedia.org/wiki/String_searching_algorithm
-    var Pattern = exports.Pattern = { VERSION: "@@VERSION@@" }, undef=undefined;
+    var Pattern = exports['@@MODULE_NAME@@'] = { VERSION: "@@VERSION@@" }, undef=undefined;
     
     /*
         space,

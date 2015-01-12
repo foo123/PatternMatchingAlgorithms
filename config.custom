@@ -1,22 +1,12 @@
 ###################################################
 #
 #   The buildtools repository is at:
-#   https://github.com/foo123/scripts/buildtools
+#   https://github.com/foo123/Beeld
 #
 ###################################################
 
-# A '#' represents a comment and everything after it is skipped
-# Lines starting with # or blank lines are skipped
-# One line for each setting, no multiple settings on same line, line indentation does not matter
-# Blocks with =[] define LISTS (arrays)
-# Blocks with ={} define MAPS (hashmaps)
-# Blocks with =[{}] define ORDEREDMAPS (array of hashmaps)
-# Blocks with = or nothing define VALUES (single value)
-# A key and/or value can be quoted (with ", ' or `, quotes) or unquoted
-# Lines with one or multiple '@'s define the end of that many previous blocks
-
 # The input files (list)
-SRC =[]
+src =[]
 
     !tpl:umd-header-single.tpl.js  # include a umd-header template
     
@@ -39,11 +29,10 @@ SRC =[]
 @  # end block
 
 # extract header from this file
-HEADER = 
-./src/Pattern.js
+header = ./src/Pattern.js
 
 # Any texts to be replaced in the final file (map)
-REPLACE =[{}]
+replace =[{}]
 
     "@@ROOT@@" = "this"
     "@@EXPORTS@@" = "exports"
@@ -54,25 +43,24 @@ REPLACE =[{}]
 @  # end block
 
 # Minify the Package (map of lists)
-#MINIFY ={}
+#minify ={}
 #
 #    # Options for Node UglifyJS Compiler (if used), (default minify options, mangle and compress)
-#    "UGLIFY" =[]
+#    "uglifyjs" =[]
 #        -m -c
 #    @  # end block
 #
 #    # Options for Java Closure Compiler (if used), (default minify options)
-#    "CLOSURE" =[]
+#    "closure" =[]
 #        --language_in=ECMASCRIPT5_STRICT
 #    @  # end block
 #
 #    # Options for Java YUI Compressor Compiler (if used), (default minify options)
-#    "YUI" =[]
+#    "yui" =[]
 #        --preserve-semi
 #    @  # end block
 #    
 #@  # end block
 
 # The final output file (value)
-OUT =
-./test/js/pattern.min.js
+out = ./test/js/pattern.min.js

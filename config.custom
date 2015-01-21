@@ -5,62 +5,68 @@
 #
 ###################################################
 
-# The input files (list)
-src =[]
+tasks =[{}]
 
-    !tpl:umd-header-single.tpl.js  # include a umd-header template
-    
-    ./src/Pattern.js
+    build =[{}]
+        
+        # The input files (list)
+        src =[]
 
-    ./src/algorithms/BuiltinMatcher.js
-    ./src/algorithms/NaiveMatcher.js
-    ./src/algorithms/RabinKarpMatcher.js
-    ./src/algorithms/FSAMatcher.js
-    ./src/algorithms/KnuthMorrisPrattMatcher.js
-    ./src/algorithms/BoyerMooreMatcher.js
-    # TODO:
-    #./src/algorithms/BaezaYatesGonnetMatcher.js
-    #./src/algorithms/BaezaYatesGonnetWuManberMatcher.js
-    #./src/algorithms/AhoCorasickMatcher.js
-    #./src/algorithms/CommentzWalterMatcher.js
+            !tpl:umd-header-single.tpl.js  # include a umd-header template
+            
+            ./src/Pattern.js
 
-    !tpl:umd-footer.tpl.js  # include a umd-footer template
-    
-@  # end block
+            ./src/algorithms/BuiltinMatcher.js
+            ./src/algorithms/NaiveMatcher.js
+            ./src/algorithms/RabinKarpMatcher.js
+            ./src/algorithms/FSAMatcher.js
+            ./src/algorithms/KnuthMorrisPrattMatcher.js
+            ./src/algorithms/BoyerMooreMatcher.js
+            # TODO:
+            #./src/algorithms/BaezaYatesGonnetMatcher.js
+            #./src/algorithms/BaezaYatesGonnetWuManberMatcher.js
+            #./src/algorithms/AhoCorasickMatcher.js
+            #./src/algorithms/CommentzWalterMatcher.js
 
-# extract header from this file
-header = ./src/Pattern.js
+            !tpl:umd-footer.tpl.js  # include a umd-footer template
+            
+        @
 
-# Any texts to be replaced in the final file (map)
-replace =[{}]
+        # extract header from this file
+        header = ./src/Pattern.js
 
-    "@@ROOT@@" = "this"
-    "@@EXPORTS@@" = "exports"
-    "@@VERSION@@" = "0.1.1"
-    "@@USE_STRICT@@" = '"use strict";'
-    "@@MODULE_NAME@@" = "Pattern"
-    
-@  # end block
+        # Any texts to be replaced in the final file (map)
+        replace =[{}]
 
-# Minify the Package (map of lists)
-#minify ={}
-#
-#    # Options for Node UglifyJS Compiler (if used), (default minify options, mangle and compress)
-#    uglifyjs =[]
-#        -m -c
-#    @  # end block
-#
-#    # Options for Java Closure Compiler (if used), (default minify options)
-#    closure =[]
-#        "--language_in=ECMASCRIPT5_STRICT"
-#    @  # end block
-#
-#    # Options for Java YUI Compressor Compiler (if used), (default minify options)
-#    yui =[]
-#        --preserve-semi
-#    @  # end block
-#    
-#@  # end block
+            "@@ROOT@@" = "this"
+            "@@EXPORTS@@" = "exports"
+            "@@VERSION@@" = "0.1.1"
+            "@@USE_STRICT@@" = '"use strict";'
+            "@@MODULE_NAME@@" = "Pattern"
+            
+        @
 
-# The final output file (value)
-out = ./test/js/pattern.min.js
+        # Minify the Package (map of lists)
+        #minify ={}
+        #
+        #    # Options for Node UglifyJS Compiler (if used), (default minify options, mangle and compress)
+        #    uglifyjs =[]
+        #        -m -c
+        #    @
+        #
+        #    # Options for Java Closure Compiler (if used), (default minify options)
+        #    closure =[]
+        #        "--language_in=ECMASCRIPT5_STRICT"
+        #    @
+        #
+        #    # Options for Java YUI Compressor Compiler (if used), (default minify options)
+        #    yui =[]
+        #        --preserve-semi
+        #    @
+        #    
+        #@
+
+        # The final output file (value)
+        out = ./test/js/pattern.min.js
+    @
+@

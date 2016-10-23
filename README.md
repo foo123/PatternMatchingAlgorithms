@@ -24,6 +24,6 @@ __Various pattern matching algorithms implementations in JavaScript  (IN PROGRES
 [![screenshot](/test/screenshot.png)](http://foo123.github.io/examples/pattern-matching-algorithms/)
 
 
-* [Live Example](http://foo123.github.io/examples/pattern-matching-algorithms/)
+* [Live Playground Example](http://foo123.github.io/examples/pattern-matching-algorithms/)
 
 

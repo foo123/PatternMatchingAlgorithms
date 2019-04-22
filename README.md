@@ -22,9 +22,9 @@ __Various pattern matching algorithms implementations in JavaScript  (IN PROGRES
 * [Commentz-Walter Matcher](http://en.wikipedia.org/wiki/Commentz-Walter_algorithm) (**not implemented yet**)
 
 
-[![screenshot](/test/screenshot.png)](http://foo123.github.io/examples/pattern-matching-algorithms/)
+[![screenshot](/test/screenshot.png)](https://foo123.github.io/examples/pattern-matching-algorithms/)
 
 
-* [Live Playground Example](http://foo123.github.io/examples/pattern-matching-algorithms/)
+* [Live Playground Example](https://foo123.github.io/examples/pattern-matching-algorithms/)
 
 

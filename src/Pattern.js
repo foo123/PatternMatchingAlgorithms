@@ -1,157 +1,121 @@
 /**
 *
 *   Pattern.js
-*   @version: @@VERSION@@
+*   @version: 1.0.0
 *
-*   Pattern Matching Algorithms implemented in JavaScript
+*   Pattern Matching Algorithms Tests in JavaScript
 *   https://github.com/foo123/PatternMatchingAlgorithms
 *
 **/
+!function(root, name, factory) {
+"use strict";
+if (('object' === typeof module) && module.exports) /* CommonJS */
+    (module.$deps = module.$deps||{}) && (module.exports = module.$deps[name] = factory.call(root));
+else if (('function' === typeof define) && define.amd && ('function' === typeof require) && ('function' === typeof require.specified) && require.specified(name) /*&& !require.defined(name)*/) /* AMD */
+    define(name, ['module'], function(module) {factory.moduleUri = module.uri; return factory.call(root);});
+else if (!(name in root)) /* Browser/WebWorker/.. */
+    (root[name] = factory.call(root)||1) && ('function' === typeof(define)) && define.amd && define(function() {return root[name];});
+}(/* current root */          'undefined' !== typeof self ? self : this,
+  /* module name */           "Pattern",
+  /* module factory */        function ModuleFactory__Pattern(undef) {
+"use strict";
 
-    @@USE_STRICT@@
-    
-    // http://en.wikipedia.org/wiki/String_searching_algorithm
-    var Pattern = { VERSION: "@@VERSION@@" }, undef=undefined;
-    
-    /*
-        space,
-        digits,
-        capital latin letters,
-        lower latin letters
-    */
-    Pattern.ALPHABET = " 0123456789ABCDEFQHIJKLMNOPQRSTUVWXYZabcdefqhijklmnopqrstuvwxyz";
-    
-    Pattern.utils = { 
-        array_fill: function(len, val) {
-            var a = new Array(len), i;
-            if ( 'function' === typeof(val) )
-            {
-                for (i=0; i<len; i++)
-                {
-                    a[ i ] = val( i );
-                }
-            }
-            else
-            {
-                for (i=0; i<len; i++)
-                {
-                    a[ i ] = val;
-                }
-            }
-            return a;
-        },
-        
-        alphabet_index: function( c ) {
-            // Returns the index of the given character in the English alphabet, counting from 0.
-            //return ALPHABET.indexOf( c ); c.toLowerCase( ).charCodeAt( 0 ) - 97; // 'a' is ASCII character 97
-            var ch = c.charCodeAt( 0 );
-            // space
-            if ( 32 >= ch ) return 0;
-            // digit
-            if ( 48 <= ch && 57 >= ch ) return ch - 47; // -48+1
-            // capital latin letter
-            if ( 65 <= ch && 90 >= ch ) return ch - 54; // -65+11
-            // lower latin letter
-            return ch - 60; // -97+11+26
-        },
-        
-        alphabet_map: function( ) {
-            return { 
-                 " ": 0
-                ,"0": 0
-                ,"1": 0
-                ,"2": 0
-                ,"3": 0
-                ,"4": 0
-                ,"5": 0
-                ,"6": 0
-                ,"7": 0
-                ,"8": 0
-                ,"9": 0
-                ,"A": 0
-                ,"B": 0
-                ,"C": 0
-                ,"D": 0
-                ,"E": 0
-                ,"F": 0
-                ,"G": 0
-                ,"H": 0
-                ,"I": 0
-                ,"J": 0
-                ,"K": 0
-                ,"L": 0
-                ,"M": 0
-                ,"N": 0
-                ,"O": 0
-                ,"P": 0
-                ,"Q": 0
-                ,"R": 0
-                ,"S": 0
-                ,"T": 0
-                ,"U": 0
-                ,"V": 0
-                ,"W": 0
-                ,"X": 0
-                ,"Y": 0
-                ,"Z": 0
-                ,"a": 0
-                ,"b": 0
-                ,"c": 0
-                ,"d": 0
-                ,"e": 0
-                ,"f": 0
-                ,"g": 0
-                ,"h": 0
-                ,"i": 0
-                ,"j": 0
-                ,"k": 0
-                ,"l": 0
-                ,"m": 0
-                ,"n": 0
-                ,"o": 0
-                ,"p": 0
-                ,"q": 0
-                ,"r": 0
-                ,"s": 0
-                ,"t": 0
-                ,"u": 0
-                ,"v": 0
-                ,"w": 0
-                ,"x": 0
-                ,"y": 0
-                ,"z": 0
-            };
-        },
-        
-        reverse: function( s ) {
-            return s.split( '' ).reverse( ).join( '' );
+// http://en.wikipedia.org/wiki/String_searching_algorithm
+var Pattern = {VERSION: "1.0.0"}, Matchy;
+
+Pattern.Matchy = function(MatchyRef) {
+    Matchy = MatchyRef;
+};
+Pattern.Matcher = function(algorithm, ref, desc) {
+    this.algorithm = algorithm;
+    this.reference = ref;
+    this.description = desc;
+};
+Pattern.Matcher.prototype = {
+    constructor: Pattern.Matcher,
+
+    algorithm: null,
+    reference: null,
+    description: '',
+    _pattern: null,
+    _matcher: null,
+
+    dispose: function() {
+        this._pattern = null;
+        this._matcher = null;
+        return this;
+    },
+
+    pattern: function(pattern) {
+        this._pattern = pattern || null;
+        this._matcher = this._pattern ? ("function" === typeof this.algorithm ? this.algorithm.bind(this) : (new Matchy())[this.algorithm](this._pattern)) : null;
+        return this;
+    },
+
+    match: function(string, offset) {
+        return this._matcher(string, offset || 0);
+    }
+};
+
+// included algorithms
+Pattern.NaiveMatcher = new Pattern.Matcher(function naive_matcher(s, o) {
+    var p = this._pattern, n = s.length, m = p.length, i;
+    if (arguments.length < 2) o = 0;
+    if (o < 0) o += n;
+    if ((0 < n) && (0 < m) && (n >= o+m))
+    {
+        n = n-m+1;
+        for (i=o; i<n; ++i)
+        {
+            if (s.slice(i, i+m) === p) return i;
         }
-    };
-    
-    Pattern.Matcher = function( pattern ) {
-        this.pattern( pattern || null );
-    };
-    Pattern.Matcher.prototype = {
-        constructor: Pattern.Matcher,
-        
-        reference: null,
-        description: '',
-        
-        _pattern: null,
-        
-        dispose: function( ) {
-            this._pattern = null;
-            return this;
-        },
-        
-        pattern: function( pattern ) {
-            this._pattern = pattern || null;
-            return this;
-        },
-        
-        match: function( s, offset ) {
-            return -1;
-        }
-    };
-    
-    
+    }
+    return -1;
+},
+'https://en.wikipedia.org/wiki/String_searching_algorithm',
+"This is a &quot;<i>naive</i>&quot; string search algorithm, in that it tests each succesive position of the input text to see if the pattern matches and does not exploit information about the pattern or the text in order to speed up the search."
+);
+Pattern.FSAMatcher = new Pattern.Matcher(
+'fsa',
+'https://en.wikipedia.org/wiki/Finite-state_machine',
+"The Finite State Automaton matcher (or FSA matcher) searches a text for a pattern, by creating a deterministic finite automaton (DFA) which is then used to parse the text. The FSA method is also used for matching a regular expression pattern."
+);
+Pattern.RabinKarpMatcher = new Pattern.Matcher(
+'rabinkarp',
+'https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm',
+"The Rabin–Karp algorithm is a string searching algorithm  that uses &quot;<i>hashing</i>&quot; to find any one of a set of pattern strings in a text. For text of length n and p patterns of combined length m, its average and best case running time is O(n+m) in space O(p), but its worst-case time is O(nm)."
+);
+Pattern.KnuthMorrisPrattMatcher = new Pattern.Matcher(
+'knuthmorrispratt',
+'https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm',
+"The Knuth–Morris–Pratt algorithm (or KMP algorithm) searches for occurrences of a word W within a main text string S by exploiting the observation that when a mismatch occurs, the word itself contains sufficient information to determine where the next match could begin, thus bypassing re-examination of previously matched characters."
+);
+Pattern.BoyerMooreMatcher = new Pattern.Matcher(
+'boyermoore',
+'https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm',
+"The Boyer-Moore algorithm uses information gathered during the preprocess step to skip sections of the text, resulting in a lower constant factor than many other string algorithms. In general, the algorithm runs faster as the pattern length increases. The key feature of the algorithm is to match on the tail of the pattern rather than the head, and to skip along the text in jumps of multiple characters rather than searching every single character in the text."
+);
+Pattern.TwoWayMatcher = new Pattern.Matcher(
+'twoway',
+'https://en.wikipedia.org/wiki/Two-way_string-matching_algorithm',
+"The two-way algorithm can be viewed as a combination of the forward-going Knuth–Morris–Pratt algorithm (KMP) and the backward-running Boyer–Moore string-search algorithm (BM). Like those two, the 2-way algorithm preprocesses the pattern to find partially repeating periods and computes <i>shifts</i> based on them, indicating what offset to <i>jump</i> to in the searched text when a given character is encountered."
+);
+Pattern.CommentzWalterMatcher = new Pattern.Matcher(
+'commentzwalter',
+'https://en.wikipedia.org/wiki/Commentz-Walter_algorithm',
+"TODO"
+);
+Pattern.BaezaYatesGonnetMatcher = new Pattern.Matcher(
+'baezayatesgonnet',
+'https://en.wikipedia.org/wiki/Bitap_algorithm',
+"TODO"
+);
+Pattern.AhoCorasickMatcher = new Pattern.Matcher(
+'ahocorasick',
+'https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm',
+"TODO"
+);
+
+// export it
+return Pattern;
+});

@@ -17,7 +17,7 @@ uses [Matchy](https://github.com/foo123/Matchy)
 * [Baeza-Yates-Gonnet Matcher](https://en.wikipedia.org/wiki/Bitap_algorithm) (TODO)
 * [Aho-Corasick Matcher](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm) (TODO)
 
-[![screenshot](/test/screenshot.png)](https://foo123.github.io/examples/pattern-matching-algorithms/)
+[![screenshot](/screenshot.png)](https://foo123.github.io/examples/pattern-matching-algorithms/)
 
 * [Live Playground Example](https://foo123.github.io/examples/pattern-matching-algorithms/)
 

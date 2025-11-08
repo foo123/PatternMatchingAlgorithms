@@ -39,6 +39,7 @@ Pattern.Matcher.prototype = {
     description: '',
     _pattern: null,
     _matcher: null,
+    _err: 0,
 
     dispose: function() {
         this._pattern = null;
@@ -74,6 +75,19 @@ Pattern.NaiveMatcher = new Pattern.Matcher(function naive_matcher(s, o) {
 },
 'https://en.wikipedia.org/wiki/String_searching_algorithm',
 "This is a &quot;<i>naive</i>&quot; string search algorithm, in that it tests each succesive position of the input text to see if the pattern matches and does not exploit information about the pattern or the text in order to speed up the search."
+);
+Pattern.FuzzyMatcher = new Pattern.Matcher(function fuzzy_matcher(s, o) {
+    var p = this._pattern, n = s.length, m = p.length, i, matcher;
+    if (arguments.length < 2) o = 0;
+    if (o < 0) o += n;
+    if ((0 < n) && (0 < m) && (n >= o+m))
+    {
+        return (new Matchy.NFA(p, {errors:this._err || 1})).match(s, o);
+    }
+    return -1;
+},
+'https://en.wikipedia.org/wiki/Levenshtein_distance',
+"This is an approximate string search algorithm using Levenshtein distance to find matches that have at most k errors."
 );
 Pattern.FSAMatcher = new Pattern.Matcher(
 'fsa',

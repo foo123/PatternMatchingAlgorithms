@@ -1,7 +1,7 @@
 /**
 *
 *   Pattern.js
-*   @version: 1.0.0
+*   @version: 1.1.0
 *
 *   Pattern Matching Algorithms Tests in JavaScript
 *   https://github.com/foo123/PatternMatchingAlgorithms
@@ -21,7 +21,7 @@ else if (!(name in root)) /* Browser/WebWorker/.. */
 "use strict";
 
 // http://en.wikipedia.org/wiki/String_searching_algorithm
-var Pattern = {VERSION: "1.0.0"}, Matchy;
+var Pattern = {VERSION: "1.1.0"}, Matchy;
 
 Pattern.Matchy = function(MatchyRef) {
     Matchy = MatchyRef;
@@ -39,7 +39,7 @@ Pattern.Matcher.prototype = {
     description: '',
     _pattern: null,
     _matcher: null,
-    _err: 0,
+    _errors: 0,
 
     dispose: function() {
         this._pattern = null;
@@ -47,9 +47,10 @@ Pattern.Matcher.prototype = {
         return this;
     },
 
-    pattern: function(pattern) {
+    pattern: function(pattern, errors) {
         this._pattern = pattern || null;
         this._matcher = this._pattern ? ("function" === typeof this.algorithm ? this.algorithm.bind(this) : (new Matchy())[this.algorithm](this._pattern)) : null;
+        this._errors = errors || 0;
         return this;
     },
 
@@ -82,7 +83,7 @@ Pattern.FuzzyMatcher = new Pattern.Matcher(function fuzzy_matcher(s, o) {
     if (o < 0) o += n;
     if ((0 < n) && (0 < m) && (n >= o+m))
     {
-        return (new Matchy.NFA(p, {errors:this._err || 1})).match(s, o);
+        return (new Matchy.NFA(p, {errors:this._errors || 0})).match(s, o);
     }
     return -1;
 },

@@ -16,6 +16,7 @@ uses [Matchy](https://github.com/foo123/Matchy)
 * [Commentz-Walter Matcher](https://en.wikipedia.org/wiki/Commentz-Walter_algorithm) (TODO)
 * [Baeza-Yates-Gonnet Matcher](https://en.wikipedia.org/wiki/Bitap_algorithm) (TODO)
 * [Aho-Corasick Matcher](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm) (TODO)
+* Fuzzy Matcher
 
 [![screenshot](/screenshot.png)](https://foo123.github.io/examples/pattern-matching-algorithms/)
 
